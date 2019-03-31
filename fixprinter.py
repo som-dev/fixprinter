@@ -40,6 +40,7 @@ def print_field(prefix, field, dd):
 # provided by the FieldMap::begin() method, so brute force
 # check each tag here.  May have to adjust tag upper limit
 # for custom tag support.
+# TODO: Update this to use a proper iterator!
 def print_fieldmap(prefix, fieldMap, dd):
     found = 0
     # Here's the brute-force part
@@ -47,8 +48,7 @@ def print_fieldmap(prefix, fieldMap, dd):
         try:
             field = fieldMap.getFieldRef(tag)
         except fix.FieldNotFound:
-            # no field found so move on
-            continue
+            continue  # no field found for the tag so move on
         # we have a field, print it as a group or individual
         groupCount = fieldMap.groupCount(tag)
         if groupCount > 0:
@@ -74,15 +74,16 @@ def create_datadictionary(spec):
 
 
 def process_line(line_num, line):
+    # within each line we are looking for a start and end:
+    #   start should be '8=FIX'...
+    #   end should be last SOH character separator '\x01'
     msg = line[line.find('8=FIX'):line.rfind('\x01')+1]
     if not msg:
         return False
-    msg_printable = msg.replace('\x01', '|')
-    print('Found FIX message at line {}: {}'.format(line_num, msg_printable))
-    print('\n')
+    msg_bars = msg.replace('\x01', '|')
+    print('\nFound FIX message at line {}: {}\n'.format(line_num, msg_bars))
     msg = fix.Message(msg, dd)
     print_msg(msg, dd)
-    print('\n')
     return True
 
 
@@ -127,6 +128,7 @@ if __name__ == "__main__":
                     messagesFound += 1
                 line_num += 1
 
+    print()
     if messagesFound > 0:
         print('Found {} messages'.format(messagesFound))
     else:
