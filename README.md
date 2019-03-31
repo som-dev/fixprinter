@@ -1,6 +1,6 @@
 # fixprinter
-A pretty printer for decoding and displaying FIX protocol messages
-in a human-readable format.
+A python pretty printer for displaying FIX protocol messages
+in a human-readable format using the quickfix library.
 
 ## Usage
 ```
