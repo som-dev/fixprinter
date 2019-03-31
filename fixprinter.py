@@ -96,7 +96,7 @@ if __name__ == "__main__":
         help='a file containing fix messages to display')
     parser.add_argument(
         '--stdin', dest='stdin', action='store_true', default=False,
-        help='a file containing fix messages to display')
+        help='read lines from stdin instead of a file')
     parser.add_argument(
         '--spec', dest='spec', default='',
         help='loads the provided XML specification '

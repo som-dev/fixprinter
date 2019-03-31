@@ -1,6 +1,8 @@
 # fixprinter
-A python pretty printer for displaying FIX protocol messages
-in a human-readable format using the quickfix library.
+A FIX message pretty-printer using the python quickfix library.
+Used for displaying FIX protocol messages in a human-readable format.
+Can read from a file or stdin and detects FIX messages within
+each line of text.
 
 ## Usage
 ```
@@ -14,7 +16,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -f FILENAME, --filename FILENAME
                         a file containing fix messages to display
-  --stdin               a file containing fix messages to display
+  --stdin               read lines from stdin instead of a file
   --spec SPEC           loads the provided XML specification (presumably from
                         the quickfix library) WARNING! The output will be
                         fairly useless without a spec
